@@ -1,0 +1,578 @@
+<!--
+作者 : ihanyu
+QQ  : 1016053132
+模板说明：因模板不支持循环，为了兼容多标签嵌套问题，所以复制了多层
+-->
+<!-- 入口模版 -->
+<template name="THINK-html">
+    <block wx:for="{{data.child}}" wx:key="">
+        <template is="Think1" data="{{item}}"/>
+    </block>
+</template>
+<!-- 基础模板 -->
+    <!-- 图片模板 -->
+    <template name="ThinkImg">
+        <image class="{{item.attr.class}}" src="{{item.attr.src}}" style="width:{{item.width}}px;height:{{item.height}}px;{{item.attr.style}}"   />
+    </template>
+    <!-- 文本模板 -->
+    <template name="ThinkText">
+        <text>{{item.text}}</text>
+    </template>
+    <!-- 按钮模板 -->
+    <template name="ThinkButton">
+        <button type="default" size="mini" >
+            <text>{{item.child[0].text}}</text>
+        </button>
+    </template>
+<!-- 循环模版1 -->
+<template name="Think1">
+    <!--判断是否是标签节点-->
+    <block wx:if="{{item.node == 'element'}}">
+        <!-- button类型 -->
+        <block wx:if="{{item.tag == 'button'}}">
+            <template is="ThinkButton" data="{{item}}"/>
+        </block>
+        <!-- ul类型 -->
+        <block wx:elif="{{item.tag == 'ul'}}">
+            <ul class="{{item.attr.class}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think2" data="{{item}}"/>
+                </block>
+            </ul>
+        </block>
+        <!--li类型-->
+        <block wx:elif="{{item.tag == 'li'}}">
+            <li class="{{item.attr.class}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think2" data="{{item}}"/>
+                </block>
+            </li>
+        </block>
+        <!--img类型-->
+        <block wx:elif="{{item.tag == 'img'}}">
+            <template is="ThinkImg" data="{{item}}"/>
+        </block>
+        <!--a类型-->
+        <block wx:elif="{{item.tag == 'a'}}">
+            <view bindtap="ThinkTagATap" class="{{item.attr.class}}" data-c="{{item.attr.href}}"  style="{{item.attr.style}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think2" data="{{item}}"/>
+                </block>
+            </view>
+        </block>
+        <!--其他块级标签-->
+        <block wx:elif="{{item.tag == 'block'}}">
+            <view class="{{item.attr.class}}" style="{{item.attr.style}}">
+                <block  wx:for="{{item.child}}" wx:for-item="item" wx:key="">       
+                    <template is="Think2" data="{{item}}"/>                 
+                </block>
+            </view>
+        </block>
+        <!--内联标签-->
+        <view wx:else class="{{item.attr.class}}" style="{{item.attr.style}}">
+            <block  wx:for="{{item.child}}" wx:for-item="item" wx:key="">       
+                <template is="Think2" data="{{item}}"/>                 
+            </block>
+        </view>
+    </block>
+    <!--判断是否是文本节点-->
+    <block wx:elif="{{item.node == 'text'}}">
+        <template is="ThinkText" data="{{item}}"/>
+    </block>
+</template>
+<!-- 循环模版2 -->
+<template name="Think2">
+    <!--判断是否是标签节点-->
+    <block wx:if="{{item.node == 'element'}}">
+        <!-- button类型 -->
+        <block wx:if="{{item.tag == 'button'}}">
+            <template is="ThinkButton" data="{{item}}"/>
+        </block>
+        <!-- ul类型 -->
+        <block wx:elif="{{item.tag == 'ul'}}">
+            <ul class="{{item.attr.class}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think3" data="{{item}}"/>
+                </block>
+            </ul>
+        </block>
+        <!--li类型-->
+        <block wx:elif="{{item.tag == 'li'}}">
+            <li class="{{item.attr.class}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think3" data="{{item}}"/>
+                </block>
+            </li>
+        </block>
+        <!--img类型-->
+        <block wx:elif="{{item.tag == 'img'}}">
+            <template is="ThinkImg" data="{{item}}"/>
+        </block>
+        <!--a类型-->
+        <block wx:elif="{{item.tag == 'a'}}">
+            <view bindtap="ThinkTagATap" class="{{item.attr.class}}" data-c="{{item.attr.href}}"  style="{{item.attr.style}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think3" data="{{item}}"/>
+                </block>
+            </view>
+        </block>
+        <!--其他块级标签-->
+        <block wx:elif="{{item.tag == 'block'}}">
+            <view class="{{item.attr.class}}" style="{{item.attr.style}}">
+                <block  wx:for="{{item.child}}" wx:for-item="item" wx:key="">       
+                    <template is="Think3" data="{{item}}"/>                 
+                </block>
+            </view>
+        </block>
+        <!--内联标签-->
+        <view wx:else class="{{item.attr.class}}" style="{{item.attr.style}}">
+            <block  wx:for="{{item.child}}" wx:for-item="item" wx:key="">       
+                <template is="Think3" data="{{item}}"/>                 
+            </block>
+        </view>
+    </block>
+    <!--判断是否是文本节点-->
+    <block wx:elif="{{item.node == 'text'}}">
+        <template is="ThinkText" data="{{item}}"/>
+    </block>
+</template>
+<!-- 循环模版3 -->
+<template name="Think3">
+    <!--判断是否是标签节点-->
+    <block wx:if="{{item.node == 'element'}}">
+        <!-- button类型 -->
+        <block wx:if="{{item.tag == 'button'}}">
+            <template is="ThinkButton" data="{{item}}"/>
+        </block>
+        <!-- ul类型 -->
+        <block wx:elif="{{item.tag == 'ul'}}">
+            <ul class="{{item.attr.class}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think4" data="{{item}}"/>
+                </block>
+            </ul>
+        </block>
+        <!--li类型-->
+        <block wx:elif="{{item.tag == 'li'}}">
+            <li class="{{item.attr.class}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think4" data="{{item}}"/>
+                </block>
+            </li>
+        </block>
+        <!--img类型-->
+        <block wx:elif="{{item.tag == 'img'}}">
+            <template is="ThinkImg" data="{{item}}"/>
+        </block>
+        <!--a类型-->
+        <block wx:elif="{{item.tag == 'a'}}">
+            <view bindtap="ThinkTagATap" class="{{item.attr.class}}" data-c="{{item.attr.href}}"  style="{{item.attr.style}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think4" data="{{item}}"/>
+                </block>
+            </view>
+        </block>
+        <!--其他块级标签-->
+        <block wx:elif="{{item.tag == 'block'}}">
+            <view class="{{item.attr.class}}" style="{{item.attr.style}}">
+                <block  wx:for="{{item.child}}" wx:for-item="item" wx:key="">       
+                    <template is="Think4" data="{{item}}"/>                 
+                </block>
+            </view>
+        </block>
+        <!--内联标签-->
+        <view wx:else class="{{item.attr.class}}" style="{{item.attr.style}}">
+            <block  wx:for="{{item.child}}" wx:for-item="item" wx:key="">       
+                <template is="Think4" data="{{item}}"/>                 
+            </block>
+        </view>
+    </block>
+    <!--判断是否是文本节点-->
+    <block wx:elif="{{item.node == 'text'}}">
+        <template is="ThinkText" data="{{item}}"/>
+    </block>
+</template>
+<!-- 循环模版4 -->
+<template name="Think4">
+    <!--判断是否是标签节点-->
+    <block wx:if="{{item.node == 'element'}}">
+        <!-- button类型 -->
+        <block wx:if="{{item.tag == 'button'}}">
+            <template is="ThinkButton" data="{{item}}"/>
+        </block>
+        <!-- ul类型 -->
+        <block wx:elif="{{item.tag == 'ul'}}">
+            <ul class="{{item.attr.class}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think5" data="{{item}}"/>
+                </block>
+            </ul>
+        </block>
+        <!--li类型-->
+        <block wx:elif="{{item.tag == 'li'}}">
+            <li class="{{item.attr.class}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think5" data="{{item}}"/>
+                </block>
+            </li>
+        </block>
+        <!--img类型-->
+        <block wx:elif="{{item.tag == 'img'}}">
+            <template is="ThinkImg" data="{{item}}"/>
+        </block>
+        <!--a类型-->
+        <block wx:elif="{{item.tag == 'a'}}">
+            <view bindtap="ThinkTagATap" class="{{item.attr.class}}" data-c="{{item.attr.href}}"  style="{{item.attr.style}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think5" data="{{item}}"/>
+                </block>
+            </view>
+        </block>
+        <!--其他块级标签-->
+        <block wx:elif="{{item.tag == 'block'}}">
+            <view class="{{item.attr.class}}" style="{{item.attr.style}}">
+                <block  wx:for="{{item.child}}" wx:for-item="item" wx:key="">       
+                    <template is="Think5" data="{{item}}"/>                 
+                </block>
+            </view>
+        </block>
+        <!--内联标签-->
+        <view wx:else class="{{item.attr.class}}" style="{{item.attr.style}}">
+            <block  wx:for="{{item.child}}" wx:for-item="item" wx:key="">       
+                <template is="Think5" data="{{item}}"/>                 
+            </block>
+        </view>
+    </block>
+    <!--判断是否是文本节点-->
+    <block wx:elif="{{item.node == 'text'}}">
+        <template is="ThinkText" data="{{item}}"/>
+    </block>
+</template>
+<!-- 循环模版5 -->
+<template name="Think5">
+    <!--判断是否是标签节点-->
+    <block wx:if="{{item.node == 'element'}}">
+        <!-- button类型 -->
+        <block wx:if="{{item.tag == 'button'}}">
+            <template is="ThinkButton" data="{{item}}"/>
+        </block>
+        <!-- ul类型 -->
+        <block wx:elif="{{item.tag == 'li'}}">
+            <ul class="{{item.attr.class}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think6" data="{{item}}"/>
+                </block>
+            </ul>
+        </block>
+        <!--li类型-->
+        <block wx:elif="{{item.tag == 'li'}}">
+            <li class="{{item.attr.class}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think6" data="{{item}}"/>
+                </block>
+            </li>
+        </block>
+        <!--img类型-->
+        <block wx:elif="{{item.tag == 'img'}}">
+            <template is="ThinkImg" data="{{item}}"/>
+        </block>
+        <!--a类型-->
+        <block wx:elif="{{item.tag == 'a'}}">
+            <view bindtap="ThinkTagATap" class="{{item.attr.class}}" data-c="{{item.attr.href}}"  style="{{item.attr.style}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think6" data="{{item}}"/>
+                </block>
+            </view>
+        </block>
+        <!--其他块级标签-->
+        <block wx:elif="{{item.tag == 'block'}}">
+            <view class="{{item.attr.class}}" style="{{item.attr.style}}">
+                <block  wx:for="{{item.child}}" wx:for-item="item" wx:key="">       
+                    <template is="Think6" data="{{item}}"/>                 
+                </block>
+            </view>
+        </block>
+        <!--内联标签-->
+        <view wx:else class="{{item.attr.class}}" style="{{item.attr.style}}">
+            <block  wx:for="{{item.child}}" wx:for-item="item" wx:key="">       
+                <template is="Think6" data="{{item}}"/>                 
+            </block>
+        </view>
+    </block>
+    <!--判断是否是文本节点-->
+    <block wx:elif="{{item.node == 'text'}}">
+        <template is="ThinkText" data="{{item}}"/>
+    </block>
+</template>
+<!-- 循环模版6 -->
+<template name="Think6">
+    <!--判断是否是标签节点-->
+    <block wx:if="{{item.node == 'element'}}">
+        <!-- button类型 -->
+        <block wx:if="{{item.tag == 'button'}}">
+            <template is="ThinkButton" data="{{item}}"/>
+        </block>
+        <!-- ul类型 -->
+        <block wx:elif="{{item.tag == 'ul'}}">
+            <ul class="{{item.attr.class}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think7" data="{{item}}"/>
+                </block>
+            </ul>
+        </block>
+        <!--li类型-->
+        <block wx:elif="{{item.tag == 'li'}}">
+            <li class="{{item.attr.class}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think7" data="{{item}}"/>
+                </block>
+            </li>
+        </block>
+        <!--img类型-->
+        <block wx:elif="{{item.tag == 'img'}}">
+            <template is="ThinkImg" data="{{item}}"/>
+        </block>
+        <!--a类型-->
+        <block wx:elif="{{item.tag == 'a'}}">
+            <view bindtap="ThinkTagATap" class="{{item.attr.class}}" data-c="{{item.attr.href}}"  style="{{item.attr.style}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think7" data="{{item}}"/>
+                </block>
+            </view>
+        </block>
+        <!--其他块级标签-->
+        <block wx:elif="{{item.tag == 'block'}}">
+            <view class="{{item.attr.class}}" style="{{item.attr.style}}">
+                <block  wx:for="{{item.child}}" wx:for-item="item" wx:key="">       
+                    <template is="Think7" data="{{item}}"/>                 
+                </block>
+            </view>
+        </block>
+        <!--内联标签-->
+        <view wx:else class="{{item.attr.class}}" style="{{item.attr.style}}">
+            <block  wx:for="{{item.child}}" wx:for-item="item" wx:key="">       
+                <template is="Think7" data="{{item}}"/>                 
+            </block>
+        </view>
+    </block>
+    <!--判断是否是文本节点-->
+    <block wx:elif="{{item.node == 'text'}}">
+        <template is="ThinkText" data="{{item}}"/>
+    </block>
+</template>
+<!-- 循环模版7 -->
+<template name="Think7">
+    <!--判断是否是标签节点-->
+    <block wx:if="{{item.node == 'element'}}">
+        <!-- button类型 -->
+        <block wx:if="{{item.tag == 'button'}}">
+            <template is="ThinkButton" data="{{item}}"/>
+        </block>
+        <!-- ul类型 -->
+        <block wx:elif="{{item.tag == 'ul'}}">
+            <ul class="{{item.attr.class}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think8" data="{{item}}"/>
+                </block>
+            </ul>
+        </block>
+        <!--li类型-->
+        <block wx:elif="{{item.tag == 'li'}}">
+            <li class="{{item.attr.class}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think8" data="{{item}}"/>
+                </block>
+            </li>
+        </block>
+        <!--img类型-->
+        <block wx:elif="{{item.tag == 'img'}}">
+            <template is="ThinkImg" data="{{item}}"/>
+        </block>
+        <!--a类型-->
+        <block wx:elif="{{item.tag == 'a'}}">
+            <view bindtap="ThinkTagATap" class="{{item.attr.class}}" data-c="{{item.attr.href}}"  style="{{item.attr.style}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think8" data="{{item}}"/>
+                </block>
+            </view>
+        </block>
+        <!--其他块级标签-->
+        <block wx:elif="{{item.tag == 'block'}}">
+            <view class="{{item.attr.class}}" style="{{item.attr.style}}">
+                <block  wx:for="{{item.child}}" wx:for-item="item" wx:key="">       
+                    <template is="Think8" data="{{item}}"/>                 
+                </block>
+            </view>
+        </block>
+        <!--内联标签-->
+        <view wx:else class="{{item.attr.class}}" style="{{item.attr.style}}">
+            <block  wx:for="{{item.child}}" wx:for-item="item" wx:key="">       
+                <template is="Think8" data="{{item}}"/>                 
+            </block>
+        </view>
+    </block>
+    <!--判断是否是文本节点-->
+    <block wx:elif="{{item.node == 'text'}}">
+        <template is="ThinkText" data="{{item}}"/>
+    </block>
+</template>
+<!-- 循环模版8 -->
+<template name="Think8">
+    <!--判断是否是标签节点-->
+    <block wx:if="{{item.node == 'element'}}">
+        <!-- button类型 -->
+        <block wx:if="{{item.tag == 'button'}}">
+            <template is="ThinkButton" data="{{item}}"/>
+        </block>
+        <!-- ul类型 -->
+        <block wx:elif="{{item.tag == 'ul'}}">
+            <ul class="{{item.attr.class}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think9" data="{{item}}"/>
+                </block>
+            </ul>
+        </block>
+        <!--li类型-->
+        <block wx:elif="{{item.tag == 'li'}}">
+            <li class="{{item.attr.class}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think9" data="{{item}}"/>
+                </block>
+            </li>
+        </block>
+        <!--img类型-->
+        <block wx:elif="{{item.tag == 'img'}}">
+            <template is="ThinkImg" data="{{item}}"/>
+        </block>
+        <!--a类型-->
+        <block wx:elif="{{item.tag == 'a'}}">
+            <view bindtap="ThinkTagATap" class="{{item.attr.class}}" data-c="{{item.attr.href}}"  style="{{item.attr.style}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think9" data="{{item}}"/>
+                </block>
+            </view>
+        </block>
+        <!--其他块级标签-->
+        <block wx:elif="{{item.tag == 'block'}}">
+            <view class="{{item.attr.class}}" style="{{item.attr.style}}">
+                <block  wx:for="{{item.child}}" wx:for-item="item" wx:key="">       
+                    <template is="Think9" data="{{item}}"/>                 
+                </block>
+            </view>
+        </block>
+        <!--内联标签-->
+        <view wx:else class="{{item.attr.class}}" style="{{item.attr.style}}">
+            <block  wx:for="{{item.child}}" wx:for-item="item" wx:key="">       
+                <template is="Think9" data="{{item}}"/>                 
+            </block>
+        </view>
+    </block>
+    <!--判断是否是文本节点-->
+    <block wx:elif="{{item.node == 'text'}}">
+        <template is="ThinkText" data="{{item}}"/>
+    </block>
+</template>
+<!-- 循环模版9 -->
+<template name="Think9">
+    <!--判断是否是标签节点-->
+    <block wx:if="{{item.node == 'element'}}">
+        <!-- button类型 -->
+        <block wx:if="{{item.tag == 'button'}}">
+            <template is="ThinkButton" data="{{item}}"/>
+        </block>
+        <!--li类型-->
+        <block wx:elif="{{item.tag == 'ul'}}">
+            <li class="{{item.attr.class}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think10" data="{{item}}"/>
+                </block>
+            </li>
+        </block>
+        <!--img类型-->
+        <block wx:elif="{{item.tag == 'img'}}">
+            <template is="ThinkImg" data="{{item}}"/>
+        </block>
+        <!--a类型-->
+        <block wx:elif="{{item.tag == 'a'}}">
+            <view bindtap="ThinkTagATap" class="{{item.attr.class}}" data-c="{{item.attr.href}}"  style="{{item.attr.style}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <template is="Think10" data="{{item}}"/>
+                </block>
+            </view>
+        </block>
+        <!--其他块级标签-->
+        <block wx:elif="{{item.tag == 'block'}}">
+            <view class="{{item.attr.class}}" style="{{item.attr.style}}">
+                <block  wx:for="{{item.child}}" wx:for-item="item" wx:key="">       
+                    <template is="Think10" data="{{item}}"/>                 
+                </block>
+            </view>
+        </block>
+        <!--内联标签-->
+        <view wx:else class="{{item.attr.class}}" style="{{item.attr.style}}">
+            <block  wx:for="{{item.child}}" wx:for-item="item" wx:key="">       
+                <template is="Think10" data="{{item}}"/>                 
+            </block>
+        </view>
+    </block>
+    <!--判断是否是文本节点-->
+    <block wx:elif="{{item.node == 'text'}}">
+        <template is="ThinkText" data="{{item}}"/>
+    </block>
+</template>
+<!-- 循环模版10(最底层) -->
+<template name="Think10">
+    <!--判断是否是标签节点-->
+    <block wx:if="{{item.node == 'element'}}">
+        <!-- button类型 -->
+        <block wx:if="{{item.tag == 'button'}}">
+            <template is="ThinkButton" data="{{item}}"/>
+        </block>
+        <!-- ul类型 -->
+        <block wx:elif="{{item.tag == 'ul'}}">
+            <ul class="{{item.attr.class}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <text>{{item.text}}</text>
+                </block>
+            </ul>
+        </block>
+        <!--li类型-->
+        <block wx:elif="{{item.tag == 'li'}}">
+            <li class="{{item.attr.class}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <text>{{item.text}}</text>
+                </block>
+            </li>
+        </block>
+        <!--img类型-->
+        <block wx:elif="{{item.tag == 'img'}}">
+            <template is="ThinkImg" data="{{item}}"/>
+        </block>
+        <!--a类型-->
+        <block wx:elif="{{item.tag == 'a'}}">
+            <view bindtap="ThinkTagATap" class="{{item.attr.class}}" data-c="{{item.attr.href}}"  style="{{item.attr.style}}">
+                <block wx:for="{{item.child}}" wx:for-item="item" wx:key="">
+                    <text>{{item.text}}</text>
+                </block>
+            </view>
+        </block>
+        <!--其他块级标签-->
+        <block wx:elif="{{item.tag == 'block'}}">
+            <view class="{{item.attr.class}}" style="{{item.attr.style}}">
+                <block  wx:for="{{item.child}}" wx:for-item="item" wx:key="">       
+                    <text>{{item.text}}</text>                 
+                </block>
+            </view>
+        </block>
+        <!--内联标签-->
+        <view wx:else class="{{item.attr.class}}" style="{{item.attr.style}}">
+            <block  wx:for="{{item.child}}" wx:for-item="item" wx:key="">       
+                <text>{{item.text}}</text>                 
+            </block>
+        </view>
+    </block>
+    <!--判断是否是文本节点-->
+    <block wx:elif="{{item.node == 'text'}}">
+        <template is="ThinkText" data="{{item}}"/>
+    </block>
+</template>
