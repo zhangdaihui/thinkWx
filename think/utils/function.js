@@ -49,6 +49,14 @@ Fun.get=function(key,e){
 Fun.post=function(key,e){
     return e['detail']['value'][key] || '';
 }
+//封装request方法(首先获取post参数，其次获取get参数)
+Fun.request=function(key,e){
+    if(e.hasOwnProperty('detail')){
+        return e['detail']['value'][key] || '';
+    }else{
+        return e[key]||'';
+    }
+}
 //封装data方法(获取data-xxx)
 Fun.data=function(key,e){
     return e['currentTarget']['dataset'][key]||'';

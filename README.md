@@ -1,33 +1,36 @@
 # thinkWx
 ## 函数相关
 ```sh
-1.THINK.config                //读取、设置配置文件
+	THINK.config                //读取、设置配置文件
 ```
 ```sh
-2.THINK.cache                 //读取、设置本地缓存
+	THINK.cache                 //读取、设置本地缓存
 ```
 ```sh
-3.THINK.get                   //读取get参数
+	THINK.get                   //读取get参数
 ```
 ```sh
-4.THINK.post                  //读取post参数
+	THINK.post                  //读取post参数
 ```
 ```sh
-5.THINK.data                  //读取data-参数
+	THINK.request               //读取post参数或get参数，post优先
 ```
 ```sh
-6.THINK.isEmpty               //检查是否为空
+	THINK.data                  //读取data-参数
 ```
 ```sh
-7.THINK.html2json             //html转成json
+	THINK.isEmpty               //检查是否为空
 ```
 ```sh
-8.THINK.json2html             //json转成html
+	THINK.html2json             //html转成json
 ```
 ```sh
-9.THINK.mixin                 //非构造函数继承
+	THINK.json2html             //json转成html
+```
+```sh
+	THINK.mixin                 //非构造函数继承
 ```
 ## 模板相关
 ```sh
-1.支持html格式输出
+	支持html格式输出
 ```
