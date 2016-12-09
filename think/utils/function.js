@@ -77,11 +77,8 @@ Fun.isEmpty=function(obj){
     if(arguments.length>1){
         throw new Error('错误的参数');
     }
-    let str=Object.prototype.toString.call(obj).toLowerCase();
-    str=str.replace('[','');
-    str=str.replace(']','');
-    var arr=str.split(' ');
-    if(arr[1]=='object'){
+    let str=Object.prototype.toString.call(obj).toLowerCase().slice(8,-1);
+    if(str==='object'){
         for(var name in obj){
             if(obj.hasOwnProperty(name)){
                 return false;
