@@ -1,34 +1,35 @@
 # thinkWx
-## 函数相关
+## 新增函数
 ```sh
 	THINK.config                //读取、设置配置文件
 ```
 ```sh
-	THINK.cache                 //读取、设置本地缓存
+	THINK.cache/cacheSync       //读取、设置本地缓存
 ```
 ```sh
-	THINK.get                   //读取get参数
-```
-```sh
-	THINK.post                  //读取post参数
-```
-```sh
-	THINK.request               //读取post参数或get参数，post优先
-```
-```sh
-	THINK.data                  //读取data-参数
+	THINK.params                //读取post、get、data-参数，post优先
 ```
 ```sh
 	THINK.isEmpty               //检查是否为空
 ```
 ```sh
-	THINK.html2json             //html转成json
-```
-```sh
-	THINK.json2html             //json转成html
+	THINK.html2json/json2html   //html<=>json
 ```
 ```sh
 	THINK.mixin                 //非构造函数继承
+```
+```sh
+	THINK.mixin                 //非构造函数继承
+```
+## Promise封装函数
+```sh
+	THINK.request              
+```
+```sh
+	THINK.getStorage            //支持同步、异步
+```
+```sh
+	THINK.setStorage            //支持同步、异步  
 ```
 ## 模板相关
 ```sh
