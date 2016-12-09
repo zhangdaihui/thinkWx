@@ -19,7 +19,7 @@
 	THINK.mixin                 //非构造函数继承
 ```
 ```sh
-	THINK.mixin                 //非构造函数继承
+	THINK.promise               //返回Promise对象
 ```
 ## Promise封装函数
 ```sh
