@@ -10,9 +10,6 @@
 	THINK.params                //读取post、get、data-参数，post优先
 ```
 ```sh
-	THINK.isEmpty               //检查是否为空
-```
-```sh
 	THINK.html2json/json2html   //html<=>json
 ```
 ```sh
@@ -20,6 +17,9 @@
 ```
 ```sh
 	THINK.promise               //返回Promise对象
+```
+```sh
+	THINK.xxx                   //新增部分工具函数
 ```
 ## Promise封装函数
 ```sh

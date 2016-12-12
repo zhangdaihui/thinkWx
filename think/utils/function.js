@@ -6,8 +6,10 @@ var HTML2JSON=require('../think-modules/html2json');
 var Promise=require('../think-modules/bluebird');
 var CONFIG=require('../conf/config');
 var _CONFIG={};
-var Fun=function(){};
+var Fun=require('../think-modules/tools');
 var THINK=Fun;
+//md5函数
+Fun.md5=require('../think-modules/md5');
 //读取config配置文件，因为不支持eval函数，最多支持二级查找，不支持多级
 Fun.config=function(key,value){
     if(arguments.length>2){
@@ -71,26 +73,6 @@ Fun.params=function(key,e,type='post'){
             break;        
     }
     return '';
-}
-//封装isEmpty方法(判断是否为空)
-Fun.isEmpty=function(obj){
-    if(arguments.length>1){
-        throw new Error('错误的参数');
-    }
-    let str=Object.prototype.toString.call(obj).toLowerCase();
-    str=str.replace('[','');
-    str=str.replace(']','');
-    var arr=str.split(' ');
-    if(arr[1]=='object'){
-        for(var name in obj){
-            if(obj.hasOwnProperty(name)){
-                return false;
-            }
-        }
-        return true;
-    }else{
-        return obj?false:true;
-    }
 }
 //html转json(已过滤标签外的空格)
 Fun.html2json=function(html){
