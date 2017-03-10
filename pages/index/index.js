@@ -11,8 +11,6 @@ Page({
     userInfo: {}
   },
   onLoad:function(){
-    let aa='123456';
-    console.log(THINK.md5.hex_md5(aa));
     let text=`
       <h2 class="title">新增函数</h2>
       <ul>
@@ -22,6 +20,7 @@ Page({
           <li>THINK.html2json/json2html<span>//html《=》json</span></li>
           <li>THINK.mixin<span>//非构造函数继承</span></li>
           <li>THINK.promise<span>//返回Promise对象</span></li>
+          <li>THINK.echo<span>//便于控制台调试输出</span></li>
           <li>THINK.xxx<span>//新增部分工具函数</span></li>
       </ul>
       <h2 class="title">Promise封装函数</h2>
@@ -41,7 +40,7 @@ Page({
       text:THINK.html2json(text)
     });
     THINK.cache('name').then(res=>{
-      console.log(res);
+      THINK.echo(res);
     });
   }
 })

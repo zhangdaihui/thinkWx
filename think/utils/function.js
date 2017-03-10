@@ -124,6 +124,18 @@ Fun.mixin=function(obj,flag=false){
         return result;
     }
 }
+//封装consoleconsole.log，便于控制台调试输出
+Fun.echo=function(str){
+    let now=new Date();
+    let time=`${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+    console.log(`=========== ${time} start ===========`);
+    if(this.isArray(str) || this.isObject(str)){
+        console.log(JSON.stringify(str));
+    }else{
+        console.log(str);
+    }
+    console.log(`=========== ${time}   end ===========`);
+}
 /*************************************************************************************************/
 //对原有的wx对象进行Promise封装
 //返回Promise对象

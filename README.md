@@ -19,6 +19,9 @@
 	THINK.promise               //返回Promise对象
 ```
 ```sh
+	THINK.echo                 //便于控制台调试输出
+```
+```sh
 	THINK.xxx                   //新增部分工具函数
 ```
 ## Promise封装函数
